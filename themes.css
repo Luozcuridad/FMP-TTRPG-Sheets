@@ -1,0 +1,115 @@
+/* The three sheet colors. Change them here and both the sheets and the
+   home page cards follow. */
+:root {
+  --blue: #0b1a3d;
+  --red: #6b0e13;
+  --green: #0a3016;
+}
+
+/* Each sheet page puts one of these classes on <body>.
+   Everything on the sheet uses --ink, so this recolors the whole sheet. */
+body.theme-blue {
+  --ink: var(--blue);
+}
+
+body.theme-red {
+  --ink: var(--red);
+}
+
+body.theme-green {
+  --ink: var(--green);
+}
+
+/* "Home" link in the toolbar looks like the other buttons */
+.toolbar a.button {
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* ---------- Home page ---------- */
+.home {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px 0 40px;
+  text-align: center;
+}
+
+.home-logo {
+  height: 2in;
+  max-width: 100%;
+}
+
+.home h1 {
+  margin: 8px 0 24px;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.home p {
+  margin: 0 0 28px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.card {
+  --ink: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.6in;
+  padding: 16px;
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--border) solid var(--ink);
+  text-decoration: none;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.card.theme-blue {
+  --ink: var(--blue);
+}
+
+.card.theme-red {
+  --ink: var(--red);
+}
+
+.card.theme-green {
+  --ink: var(--green);
+}
+
+/* Hover and keyboard focus: the card fills with its color */
+.card:hover,
+.card:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+  outline: none;
+}
+
+@media (max-width: 700px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .card {
+    font-size: 30px;
+    min-height: 1.2in;
+  }
+
+  .home h1 {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 420px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}

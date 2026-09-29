@@ -1,12 +1,13 @@
 // ---------- 1. Build the skill checkboxes from a list ----------
 // Edit this list to add or rename skills. Order is left column, then right column.
-const SKILLS = [
+const DEFAULT_SKILLS = [
   "Leader", "Melee Fighter", "Heavy Gunner", "Sniper", "Pilot",
   "Engineer", "Hacker", "Medic", "Rescuer", "Escape Artist",
   "Analyst", "Spy", "Recon", "Charming", "Well-Prepared",
   "Cold-Blooded", "Scavenger", "Wealthy", "Magical", "Lucky",
 ];
 
+const SKILLS = (window.SHEET && window.SHEET.skills) || DEFAULT_SKILLS;
 const skillsBox = document.getElementById("skills");
 SKILLS.forEach((label, i) => {
   const row = document.createElement("label");
@@ -98,7 +99,7 @@ function apply(data) {
 }
 
 // ---------- 4. Autosave in this browser ----------
-const KEY = "fmp-amazon-sheet";
+const KEY = (window.SHEET && window.SHEET.key) || "fmp-amazon-sheet";
 
 function autosave() {
   try {
@@ -175,3 +176,37 @@ document.getElementById("btn-png").addEventListener("click", async () => {
     sheet.classList.remove("exporting");
   }
 });
+
+// ---------- 7. Tint the logo to match the sheet color ----------
+(function tintLogo() {
+  const img = document.querySelector(".logo img");
+  if (!img) return;
+  const ink = getComputedStyle(document.body).getPropertyValue("--ink").trim();
+  if (!/^#[0-9a-f]{6}$/i.test(ink)) return; // Amazons uses plain black, nothing to do
+  const [cr, cg, cb] = [1, 3, 5].map((i) => parseInt(ink.slice(i, i + 2), 16));
+
+  function paint() {
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const px = data.data;
+      for (let i = 0; i < px.length; i += 4) {
+        const v = px[i] / 255; // 0 is black, 1 is white
+        px[i] = cr + (255 - cr) * v;
+        px[i + 1] = cg + (255 - cg) * v;
+        px[i + 2] = cb + (255 - cb) * v;
+      }
+      ctx.putImageData(data, 0, 0);
+      img.src = canvas.toDataURL("image/png");
+    } catch (err) {
+      console.warn("Could not tint the logo.", err);
+    }
+  }
+
+  if (img.complete && img.naturalWidth) paint();
+  else img.addEventListener("load", paint, { once: true });
+})();

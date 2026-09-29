@@ -186,11 +186,13 @@ body {
 }
 
 .stat::before {
-  left: calc(-1 * var(--stat-gap));
+  left: calc(-1 * var(--stat-gap) - 3px);
+  width: calc(var(--stat-gap) + 6px);
 }
 
 .stat:last-child::after {
-  left: 100%;
+  left: calc(100% - 3px);
+  width: calc(var(--stat-gap) + 3px);
 }
 
 .stat h3 {
