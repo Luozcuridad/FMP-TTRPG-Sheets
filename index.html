@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FMP Amazons Character Sheet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Buttons above the sheet. They are hidden when printing. -->
+  <div class="toolbar no-print">
+    <button id="btn-clear">New character</button>
+    <button id="btn-print">Print as PDF</button>
+    <button id="btn-png">Save as PNG</button>
+  </div>
+
+  <main class="sheet">
+
+    <!-- Put a file named logo.png next to this page to replace the text placeholder -->
+    <div class="logo">
+      <img src="logo.png" alt="French Maid Planet"
+        onerror="this.parentElement.classList.add('no-logo'); this.remove();">
+    </div>
+
+    <h1 class="title">AMAZONs</h1>
+
+    <!-- LEFT COLUMN -->
+    <section class="left">
+
+      <div class="fields">
+        <label class="line"><span>NAME:</span><input id="name" type="text"></label>
+        <label class="line"><span>SPECIES:</span><input id="species" type="text"></label>
+        <label class="line"><span>BRANCH:</span><input id="branch" type="text"></label>
+        <label class="line"><span>MOTIVATION:</span><input id="motivation" type="text"></label>
+        <label class="line"><span>FLAWS:</span><input id="flaws" type="text"></label>
+      </div>
+
+      <!-- Six stats: top box and bottom box for each of the three columns -->
+      <div class="stats">
+        <div class="stat">
+          <h3>Weapon</h3>
+          <input id="weapon" type="number" min="0" placeholder="00">
+          <input id="rally" type="number" min="0" placeholder="00">
+          <h3>Rally</h3>
+        </div>
+        <div class="stat">
+          <h3>Evasion</h3>
+          <input id="evasion" type="number" min="0" placeholder="00">
+          <input id="strength" type="number" min="0" placeholder="00">
+          <h3>Strength</h3>
+        </div>
+        <div class="stat">
+          <h3>Strategy</h3>
+          <input id="strategy" type="number" min="0" placeholder="00">
+          <input id="willpower" type="number" min="0" placeholder="00">
+          <h3>Willpower</h3>
+        </div>
+      </div>
+
+      <!-- The 20 checkboxes are created by script.js from a list -->
+      <div class="skills" id="skills"></div>
+
+    </section>
+
+    <!-- RIGHT COLUMN -->
+    <section class="right">
+
+      <div class="portrait" id="portrait" tabindex="0" role="button" aria-label="Choose a portrait image">
+        <span class="hint no-print">Click or drop an image here</span>
+        <img id="portrait-img" alt="Character portrait" hidden>
+      </div>
+
+      <div class="box">
+        <h3>EQUIPMENT</h3>
+        <textarea id="equipment"></textarea>
+      </div>
+
+      <div class="box tall">
+        <h3>ITEMS</h3>
+        <textarea id="items"></textarea>
+      </div>
+
+      <label class="tokens"><span>ADVERSITY TOKENS:</span><input id="tokens" type="number" min="0"></label>
+
+    </section>
+
+  </main>
+
+  <!-- Hidden file picker used by the portrait box -->
+  <input type="file" id="portrait-file" accept="image/*" hidden>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

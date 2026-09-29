@@ -1,0 +1,488 @@
+/* Colors and fonts live here so you can change the look in one place */
+:root {
+  --ink: #000;
+  --paper: #fff;
+  --desk: #d9d9d9;
+  --border: 6px;
+  --font: "Oswald", "Arial Narrow", "Impact", sans-serif;
+  --stat-h: 0.7in;
+  --stat-gap: 0.2in;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+  background: var(--desk);
+  font-family: var(--font);
+  color: var(--ink);
+}
+
+/* ---------- Toolbar ---------- */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.toolbar button,
+.toolbar .button {
+  font: 500 16px var(--font);
+  padding: 8px 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toolbar button:hover,
+.toolbar .button:hover {
+  background: #333;
+}
+
+.toolbar :focus-visible,
+.sheet :focus-visible {
+  outline: 3px solid #2a6df4;
+  outline-offset: 2px;
+}
+
+/* ---------- The sheet (letter paper shape) ---------- */
+.sheet {
+  position: relative;
+  width: 8.5in;
+  max-width: 100%;
+  min-height: 11in;
+  margin: 0 auto;
+  padding: 0.4in 0.5in 0.35in;
+  background: var(--paper);
+  border: var(--border) solid var(--ink);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  grid-template-areas:
+    "logo  title"
+    "left  right";
+  grid-template-rows: 1.1in 1fr;
+  column-gap: 0.35in;
+}
+
+.logo {
+  position: absolute;
+  top: 0.1in;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+
+.title {
+  grid-area: title;
+}
+
+.left {
+  grid-area: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 0.25in;
+}
+
+.right {
+  grid-area: right;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo: uses logo.png if it exists, otherwise this text placeholder */
+.logo img {
+  height: 1.3in;
+  display: block;
+}
+
+.logo.no-logo {
+  align-self: start;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 6px 22px;
+  font-weight: 700;
+  font-size: 34px;
+  letter-spacing: 6px;
+  text-align: center;
+  height: fit-content;
+}
+
+.logo.no-logo::after {
+  content: "French Maid Planet";
+  display: block;
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 500;
+}
+
+.title {
+  margin: 0;
+  align-self: end;
+  text-align: center;
+  font-size: 54px;
+  font-weight: 700;
+  line-height: 1;
+  padding-bottom: 12px;
+}
+
+/* ---------- Text lines ---------- */
+.line {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.line input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  border-bottom: 4px solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+  font: 500 19px var(--font);
+  padding: 0 4px;
+}
+
+/* ---------- Stats ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--stat-gap);
+  width: 78%;
+  margin: 22px auto 22px 0.3in;
+}
+
+.stat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.stat::before,
+.stat:last-child::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: var(--stat-gap);
+  height: calc(var(--stat-h) * 0.85);
+  transform: translateY(-50%);
+  background: var(--ink);
+}
+
+.stat::before {
+  left: calc(-1 * var(--stat-gap));
+}
+
+.stat:last-child::after {
+  left: 100%;
+}
+
+.stat h3 {
+  margin: 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.stat input {
+  width: 100%;
+  height: var(--stat-h);
+  border: 5px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  text-align: center;
+  font: 500 44px var(--font);
+  padding: 0;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.stat input+input {
+  border-top-width: 3px;
+}
+
+.stat input::placeholder {
+  color: #bbb;
+}
+
+/* Hide the little up/down arrows on number fields */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* ---------- Skills ---------- */
+.skills {
+  display: grid;
+  grid-template-rows: repeat(10, auto);
+  grid-auto-flow: column;
+  gap: 6px 12px;
+}
+
+.skill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 21px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.skill input {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  border: 5px solid var(--ink);
+  border-radius: 3px;
+  background: var(--paper);
+  cursor: pointer;
+  position: relative;
+}
+
+/* A checked box fills with black */
+.skill input:checked::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: var(--ink);
+}
+
+/* ---------- Right column ---------- */
+.portrait {
+  position: relative;
+  aspect-ratio: 0.72;
+  border: 5px solid var(--ink);
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+}
+
+.portrait.dragging {
+  background: #eee;
+}
+
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portrait .hint {
+  color: #999;
+  font-size: 18px;
+  text-align: center;
+  padding: 8px;
+}
+
+.box {
+  position: relative;
+  margin-top: 26px;
+  height: 1.45in;
+  border: 5px solid var(--ink);
+  border-radius: 28px;
+  padding: 26px 16px 12px;
+}
+
+.box.tall {
+  height: auto;
+  flex: 1;
+  min-height: 2.2in;
+  border-radius: 40px;
+}
+
+.box h3 {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.1;
+}
+
+/* The black tab above each box, like on the paper sheet */
+.box::before {
+  content: "";
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  width: 0.8in;
+  height: 26px;
+  z-index: 1;
+  transform: translateX(-50%);
+  background: var(--ink);
+}
+
+.box textarea {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  resize: none;
+  background: transparent;
+  font: 500 19px/1.3 var(--font);
+}
+
+.tokens {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  margin-top: 14px;
+  font-size: 22px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tokens input {
+  width: 1in;
+  border: 0;
+  border-bottom: 4px solid var(--ink);
+  background: transparent;
+  font: 500 19px var(--font);
+  text-align: center;
+}
+
+/* Text inputs should not show a default outline box on the sheet */
+.sheet input:focus,
+.sheet textarea:focus {
+  outline: none;
+  background: #f2f7ff;
+}
+
+.sheet input:focus-visible,
+.sheet textarea:focus-visible {
+  outline: none;
+}
+
+/* ---------- Phones: stack the columns ---------- */
+@media (max-width: 700px) {
+  .sheet {
+    grid-template-columns: 1fr;
+    grid-template-areas: "logo" "title" "left" "right";
+    padding: 0.3in 0.2in;
+  }
+
+  .stats {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .line {
+    font-size: 18px;
+  }
+
+  .skill {
+    font-size: 18px;
+  }
+}
+
+/* ---------- Printing ---------- */
+@page {
+  size: letter;
+  margin: 0.25in;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    padding: 0;
+  }
+
+  .sheet {
+    width: 8.5in;
+    min-height: calc(10.4in / 0.92);
+    height: auto;
+    zoom: 0.92;
+    margin: 0 auto;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .sheet input:focus,
+  .sheet textarea:focus {
+    background: transparent;
+  }
+
+  .stat input::placeholder {
+    color: transparent;
+  }
+}
+
+/* Applied only while exporting a PNG */
+.exporting .stat input::placeholder {
+  color: transparent;
+}
+
+.exporting .hint {
+  display: none;
+}
+
+.num-box {
+  height: var(--stat-h);
+  border: 5px solid var(--ink);
+  border-radius: 3px;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 500 44px var(--font);
+}
+
+.num-box+.num-box {
+  border-top-width: 3px;
+}
+
+.fake-check {
+  flex: none;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border: 5px solid var(--ink);
+  border-radius: 3px;
+  background: var(--paper);
+}
+
+.fake-check i {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  background: var(--ink);
+}
