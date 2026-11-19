@@ -1,3 +1,3 @@
-Vibecoded static website tool thing to make character sheets for a modified TTRPG Game.
+Vibecoded static website tool for making character sheets for a modified TTRPG.
 
-Because making a fillable PDF was a pain in the but and there was no tool online that allowed to add images easily. 
+I made it because making a fillable PDF was a pain in the butt, and no tool online or offline let me add images easily without breaking something else in the file.
